@@ -64,6 +64,7 @@ class Townhallscrapper
 
 # cette fonction envoie le tableau dans un fichier csv
   def perform
+    get_all_email_of_department_townhalls
     CSV.open("thp_free_com/db/db.csv","a+") {|csv| get_all_email_of_department_townhalls.to_a.each {|elem| csv << elem} }
     puts "done envoyé vers un csv"
   end
