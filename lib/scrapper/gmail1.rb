@@ -6,7 +6,7 @@ require 'base64'
 class Mailer
 
 	def initialize
-		@lol = CSV.foreach("./db.csv")
+		@lol = CSV.foreach("thp_free_com/db/db.csv")
 		translate
 		sendmail(translate, decoding)
 	end
