@@ -7,10 +7,6 @@ require './../lib/views/done.rb'
 class LaunchApp
 
   def initialize
-    Initialize_db.new
-    if gets.chomp == 1
-      TownhallRun.new
-    end
     Mailer.new
     ScrappingTwitter.new
     RubyBot.new
