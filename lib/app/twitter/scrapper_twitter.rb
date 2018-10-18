@@ -1,9 +1,13 @@
- # ligne très importante qui appelle la gem. Sans elle, le programme ne saura pas appeler Twitter
+# ligne très importante qui appelle la gem. Sans elle, le programme ne saura pas appeler Twitter
 require 'twitter'
 require 'pry'
 require 'dotenv'
+require 'csv'
 
-Dotenv.load
+
+
+
+  Dotenv.load
 
 # quelques lignes qui enregistrent les clés d'APIs
 client = Twitter::REST::Client.new do |config|
@@ -13,9 +17,15 @@ client = Twitter::REST::Client.new do |config|
   config.access_token_secret = ENV["TWITTER_TOKEN_SECRET"]
 end
 
-# ligne qui permet de follow une personne 
-p client 
-client.follow(213747670)
+
+ CSV.foreach('../../db/db.csv') do |row|
+ a = row.first + " ville"
+p b = client.user_search(a).first.screen_name
 
 
-TEST 
+csv = CSV.foreach('../../db/db.csv') do |row|
+p csv
+#csv do |row|
+#  csv << b
+end
+end
