@@ -2,6 +2,8 @@
 require 'twitter'
 require 'pry'
 require 'dotenv'
+require 'csv'
+
 
 Dotenv.load
 
@@ -13,9 +15,9 @@ client = Twitter::REST::Client.new do |config|
   config.access_token_secret = ENV["TWITTER_TOKEN_SECRET"]
 end
 
-# ligne qui permet de follow une personne 
-p client 
-client.follow(213747670)
+# ligne qui permet de follow une personne
 
-
-TEST 
+CSV.foreach("../../db/db.csv") do |row|
+  p row[3][1..-1]
+ p client.follow(row[3][1..-1])
+end
