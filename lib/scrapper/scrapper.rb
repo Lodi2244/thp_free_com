@@ -3,9 +3,28 @@ require 'open-uri'
 require 'csv'
 require 'rubocop'
 
+# On fait une class pour lancer tout le scrapping
+# pout le Bas-Rhin et l'Ille et vilaire, deux pages sont nécessaire pour afficher toutes les communes,
+# nous sommes donc obligé de lancer deux fois le programme
+class TownhallRun
+  def initialize
+    puts "Attention le programme est long il tourne pendant 45 min"
+    url_bas_rhin_01 = TownhallScrapper.new('http://annuaire-des-mairies.com/bas-rhin.html',67,'Bas-Rhin')
+    url_bas_rhin_01.perform
+    url_bas_rhin_02 = TownhallScrapper.new('http://annuaire-des-mairies.com/bas-rhin-2.html',67,'Bas-Rhin')
+    url_bas_rhin_02.perform
+    url_ille_et_villaine_01 = TownhallScrapper.new('http://www.annuaire-des-mairies.com/ille-et-vilaine.html',35,'Ille-et-Vilaine')
+    url_ille_et_villaine_01.perform
+    url_ille_et_villaine_02 = TownhallScrapper.new('http://www.annuaire-des-mairies.com/ille-et-vilaine-2.html',35,'Ille-et-Vilaine')
+    url_ille_et_villaine_02.perform
+    url_haut_de_seine = TownhallScrapper.new('http://www.annuaire-des-mairies.com/hauts-de-seine.html',92,'Hauts-de-Seine')
+    url_haut_de_seine.perform
+  end
+end
+
 # on créer une class qui vient récupérer l'intégralité des emails d'un
 # departement en partant de l'annuaire du site "http://www.annuaire-des-mairies.com/"
-class Townhallscrapper
+class TownhallScrapper
 
   attr_accessor :url, :department_number, :department_name
 
@@ -70,18 +89,4 @@ class Townhallscrapper
   end
 end
 
-# pout le Bas-Rhin et l'Ille et vilaire, deux pages sont nécessaire pour afficher toutes les communes, nous sommes donc obligé de lancer deux fois le programme
-url_01 = Townhallscrapper.new('http://annuaire-des-mairies.com/bas-rhin.html',67,'Bas-Rhin')
-url_01.perform
 
-url_01 = Townhallscrapper.new('http://annuaire-des-mairies.com/bas-rhin-2.html',67,'Bas-Rhin')
-url_01.perform
-
-url_01 = Townhallscrapper.new('http://www.annuaire-des-mairies.com/ille-et-vilaine.html',35,'Ille-et-Vilaine')
-url_01.perform
-
-url_01 = Townhallscrapper.new('http://www.annuaire-des-mairies.com/ille-et-vilaine-2.html',35,'Ille-et-Vilaine')
-url_01.perform
-
-url_01 = Townhallscrapper.new('http://www.annuaire-des-mairies.com/hauts-de-seine.html',92,'Hauts-de-Seine')
-url_01.perform
