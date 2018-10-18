@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'csv'
 
 class Townhallscrapper
 
@@ -51,20 +52,32 @@ class Townhallscrapper
       town_city_mail       << get_the_mail_of_a_townhal_from_its_webpage(get_all_the_urls_of_department_townhalls[i])
       town_city_name       << get_the_name_of_a_townhal_from_its_webpage(get_all_the_urls_of_department_townhalls[i])
       town_city_department << @department_name
-
-      puts town_city_department[i]
-      puts town_city_name[i]
-      puts town_city_mail[i]
       i += 1
     end
-    town_city_name_and_email_adress = Hash.new 
-    town_city_name_and_email_adress.zip(town_city_department,town_city_name,town_city_mail)
-    puts town_city_name_and_email_adress
-    #town_city_name_and_email_adress
+    department_info = town_city_department.zip(town_city_name,town_city_mail)
   end
 
+  def perform
+    puts "coucou tu pars pour 5 minutes"
+    get_all_email_of_department_townhalls
+    CSV.open("thp_free_com/db/db.csv","a+") {|csv| get_all_email_of_department_townhalls.to_a.each {|elem| csv << elem} }
+    puts "done envoyé vers un csv"
+  end
 end
 
 url_01 = Townhallscrapper.new('http://annuaire-des-mairies.com/bas-rhin.html',67,'Bas-Rhin')
-url_01.get_all_email_of_department_townhalls
+url_01.perform
 
+
+url_01 = Townhallscrapper.new('http://annuaire-des-mairies.com/bas-rhin-2.html',67,'Bas-Rhin')
+url_01.perform
+
+url_01 = Townhallscrapper.new('http://www.annuaire-des-mairies.com/ille-et-vilaine.html',35,'Ille-et-Vilaine')
+url_01.perform
+
+
+url_01 = Townhallscrapper.new('http://www.annuaire-des-mairies.com/ille-et-vilaine-2.html',35,'Ille-et-Vilaine')
+url_01.perform
+
+url_01 = Townhallscrapper.new('http://www.annuaire-des-mairies.com/hauts-de-seine.html',92,'Hauts-de-Seine')
+url_01.perform
