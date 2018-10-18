@@ -1,0 +1,1 @@
+puts "program runs smoothly ;)"
