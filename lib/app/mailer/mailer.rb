@@ -6,7 +6,7 @@ require 'base64'
 class Mailer
 
 	def initialize
-		@lol = CSV.foreach("thp_free_com/db/db.csv")
+		@lol = CSV.foreach(File.expand_path("../../../../db/db.csv", __FILE__))
 		translate
 		sendmail(translate, decoding)
 	end
@@ -18,14 +18,16 @@ class Mailer
         	return key
 	end
 
-	
+
 	def translate
-		
+
 		array_email = Array.new
 		array_nom_commun = Array.new
 		@lol.each do |v|
+			if v[2] == ""
 			array_email << v[2].lstrip.rstrip
 			array_nom_commun << v[1]
+		end
 		end
  	 	final_hash = Hash[array_email.zip(array_nom_commun)]
 		return final_hash

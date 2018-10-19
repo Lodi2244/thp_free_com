@@ -10,7 +10,6 @@ gem 'gmail', '~> 0.7.1'
 
 gem 'dotenv', '~> 2.5.0'
 
-gem 'rubocop', '~> 0.59.2'
 
 gem 'pry', '~> 0.11.3'
 

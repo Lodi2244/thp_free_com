@@ -1,3 +1,3 @@
-require './../lib/views/index.rb'
+require "./lib/views/index.rb"
 
 LaunchApp.new
